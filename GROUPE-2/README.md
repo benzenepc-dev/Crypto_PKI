@@ -13,10 +13,15 @@ Destinataire : **nds.ucad.fst.lacgaa@gmail.com**
 - `VIDEO/script-video-demo.md` — script/plan pour enregistrer la vidéo de démonstration.
 - `VIDEO/demo-pki-ejbca-groupe-2.mp4` — **à ajouter** une fois la vidéo enregistrée.
 
+## Équipe
+
+- **Ahmad Diop** — branche `pki-ejbca-setup` (déploiement EJBCA, Root CA, certificat serveur)
+- **Papa Mamadou** — branche `webserver-https-migration` (serveur web, migration HTTPS)
+- **Mame Fatou** — branche `docs-rapport-tests` (rapport, tests, documentation)
+
 ## À faire avant l'envoi
 
-1. Remplacer `[Nom membre X]` par les vrais noms dans le Word et le PowerPoint (page de garde /
-   première diapo).
+1. ~~Remplacer les noms~~ — déjà fait (Ahmad Diop, Papa Mamadou, Mame Fatou).
 2. Effectuer réellement les manipulations (installation EJBCA, configuration CA, migration
    HTTPS, tests) en suivant les guides du dépôt (`docs/guide-ejbca.md`, `docs/guide-https.md`),
    et prendre les captures d'écran demandées à chaque emplacement `[ Insérer capture d'écran ]`.

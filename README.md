@@ -43,9 +43,9 @@ flowchart LR
 
 | Branche | Responsable | Contenu |
 |---|---|---|
-| `pki-ejbca-setup` | Membre 1 | Déploiement EJBCA (Docker Compose + MariaDB), création Root CA (et Sub CA si possible), profils de certificats, création du SuperAdmin, émission du certificat serveur (CSR ou génération par la CA) |
-| `webserver-https-migration` | Membre 2 | Serveur web de démo en HTTP, migration vers HTTPS avec le certificat EJBCA, redirection HTTP→HTTPS, durcissement TLS (protocoles/ciphers), vérification avec `openssl s_client` / `testssl.sh` |
-| `docs-rapport-tests` | Membre 3 | Rapport (concepts PKI, X.509, CRL/OCSP, schéma d'archi), scénarios de test/validation (chaîne de confiance, révocation, expiration), README, captures d'écran, slides de soutenance si besoin |
+| `pki-ejbca-setup` | Ahmad Diop | Déploiement EJBCA (Docker Compose + MariaDB), création Root CA (et Sub CA si possible), profils de certificats, création du SuperAdmin, émission du certificat serveur (CSR ou génération par la CA) |
+| `webserver-https-migration` | Papa Mamadou | Serveur web de démo en HTTP, migration vers HTTPS avec le certificat EJBCA, redirection HTTP→HTTPS, durcissement TLS (protocoles/ciphers), vérification avec `openssl s_client` / `testssl.sh` |
+| `docs-rapport-tests` | Mame Fatou | Rapport (concepts PKI, X.509, CRL/OCSP, schéma d'archi), scénarios de test/validation (chaîne de confiance, révocation, expiration), README, captures d'écran, slides de soutenance si besoin |
 
 Chaque branche pousse son travail puis ouvre une Pull Request vers `main` pour relecture croisée.
 Voir [docs/repartition-des-taches.md](docs/repartition-des-taches.md) pour le détail des tâches.
@@ -80,9 +80,9 @@ Synthèse complète de la recherche : [docs/recherche-ecosysteme-pki-2026.md](do
 
 ```
 main                          # intégration finale, stable
-├── pki-ejbca-setup           # Membre 1
-├── webserver-https-migration # Membre 2
-└── docs-rapport-tests        # Membre 3
+├── pki-ejbca-setup           # Ahmad Diop
+├── webserver-https-migration # Papa Mamadou
+└── docs-rapport-tests        # Mame Fatou
 ```
 
 Convention de commit : `type(scope): message` (ex: `feat(ejbca): ajoute docker-compose CA`).

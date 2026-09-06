@@ -1,6 +1,6 @@
 # Répartition des tâches
 
-## Membre 1 — branche `pki-ejbca-setup`
+## Ahmad Diop — branche `pki-ejbca-setup`
 
 - [ ] Docker Compose EJBCA + MariaDB (`infra/ejbca/docker-compose.yml`, déjà initialisé)
 - [ ] Création du SuperAdmin
@@ -13,7 +13,7 @@
 
 Référence : [../docs/guide-ejbca.md](guide-ejbca.md)
 
-## Membre 2 — branche `webserver-https-migration`
+## Papa Mamadou — branche `webserver-https-migration`
 
 - [ ] Générer la CSR (`certs/server.csr` + `server.key`)
 - [ ] Monter un serveur web de démo en HTTP simple
@@ -26,7 +26,7 @@ Référence : [../docs/guide-ejbca.md](guide-ejbca.md)
 
 Référence : [../docs/guide-https.md](guide-https.md)
 
-## Membre 3 — branche `docs-rapport-tests`
+## Mame Fatou — branche `docs-rapport-tests`
 
 - [ ] Rédaction du rapport : concepts PKI/X.509, chaîne de confiance, CRL/OCSP
 - [ ] Explication des choix techniques (EJBCA, hiérarchie de CA, algorithmes/tailles de clé)
