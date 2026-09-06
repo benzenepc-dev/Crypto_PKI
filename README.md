@@ -45,7 +45,7 @@ flowchart LR
 |---|---|---|
 | `pki-ejbca-setup` | Ahmad Diop | Déploiement EJBCA (Docker Compose + MariaDB), création Root CA (et Sub CA si possible), profils de certificats, création du SuperAdmin, émission du certificat serveur (CSR ou génération par la CA) |
 | `webserver-https-migration` | Papa Mamadou | Serveur web de démo en HTTP, migration vers HTTPS avec le certificat EJBCA, redirection HTTP→HTTPS, durcissement TLS (protocoles/ciphers), vérification avec `openssl s_client` / `testssl.sh` |
-| `docs-rapport-tests` | Mame Fatou | **Rôle technique** : révocation d'un certificat + vérification CRL (hands-on EJBCA), audit de sécurité TLS indépendant (`testssl.sh`/`nmap`), comparatif CA privée vs CA publique, exécution des scénarios de test 1-4. **Plus** : compilation finale du rapport (intro, difficultés, perspectives, conclusion) et du PPT, vidéo de démo |
+| `docs-rapport-tests` | Mame Fama | **Rôle technique** : révocation d'un certificat + vérification CRL (hands-on EJBCA), audit de sécurité TLS indépendant (`testssl.sh`/`nmap`), comparatif CA privée vs CA publique, exécution des scénarios de test 1-4. **Plus** : compilation finale du rapport (intro, difficultés, perspectives, conclusion) et du PPT, vidéo de démo |
 
 Chaque branche pousse son travail puis ouvre une Pull Request vers `main` pour relecture croisée.
 Voir [docs/repartition-des-taches.md](docs/repartition-des-taches.md) pour le détail des tâches.
@@ -82,7 +82,7 @@ Synthèse complète de la recherche : [docs/recherche-ecosysteme-pki-2026.md](do
 main                          # intégration finale, stable
 ├── pki-ejbca-setup           # Ahmad Diop
 ├── webserver-https-migration # Papa Mamadou
-└── docs-rapport-tests        # Mame Fatou
+└── docs-rapport-tests        # Mame Fama
 ```
 
 Convention de commit : `type(scope): message` (ex: `feat(ejbca): ajoute docker-compose CA`).

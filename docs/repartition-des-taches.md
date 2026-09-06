@@ -9,7 +9,7 @@
 - [ ] Création des profils de certificat/End Entity pour un certificat serveur
 - [ ] Émission du certificat serveur à partir de la CSR fournie par le membre 2
 - [ ] Export des artefacts (`root-ca.pem`, `chain.pem`, `server-cert.pem`) pour le membre 2
-- [ ] Donner à Mame Fatou un accès EJBCA (compte RA/Admin) pour qu'elle puisse réaliser
+- [ ] Donner à Mame Fama un accès EJBCA (compte RA/Admin) pour qu'elle puisse réaliser
       elle-même la démonstration de révocation (voir sa section ci-dessous)
 - [ ] Rédiger la section 5 du rapport (installation + configuration EJBCA, avec ses propres
       captures d'écran) — voir `Rapport_PKI_EJBCA_GROUPE-2.docx`
@@ -30,7 +30,7 @@ Référence : [../docs/guide-ejbca.md](guide-ejbca.md)
 
 Référence : [../docs/guide-https.md](guide-https.md)
 
-## Mame Fatou — branche `docs-rapport-tests`
+## Mame Fama — branche `docs-rapport-tests`
 
 Rôle technique à part entière : audit de sécurité indépendant + démonstration de révocation,
 en plus de la compilation finale du rapport. Elle doit manipuler EJBCA et le serveur elle-même,
@@ -63,7 +63,7 @@ pas seulement rédiger ce que les deux autres ont fait.
    pas une CA publique).
 4. Redirection automatique HTTP → HTTPS (code 301/308).
 5. Révocation d'un certificat dans EJBCA → apparition dans la CRL → refus côté client
-   (réalisée et documentée par Mame Fatou, plus obligatoire dans ce rapport).
+   (réalisée et documentée par Mame Fama, plus obligatoire dans ce rapport).
 
 ## Workflow Git
 

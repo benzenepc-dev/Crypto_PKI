@@ -17,11 +17,11 @@ Destinataire : **nds.ucad.fst.lacgaa@gmail.com**
 
 - **Ahmad Diop** — branche `pki-ejbca-setup` (déploiement EJBCA, Root CA, certificat serveur)
 - **Papa Mamadou** — branche `webserver-https-migration` (serveur web, migration HTTPS)
-- **Mame Fatou** — branche `docs-rapport-tests` (rapport, tests, documentation)
+- **Mame Fama** — branche `docs-rapport-tests` (rapport, tests, documentation)
 
 ## À faire avant l'envoi
 
-1. ~~Remplacer les noms~~ — déjà fait (Ahmad Diop, Papa Mamadou, Mame Fatou).
+1. ~~Remplacer les noms~~ — déjà fait (Ahmad Diop, Papa Mamadou, Mame Fama).
 2. Effectuer réellement les manipulations (installation EJBCA, configuration CA, migration
    HTTPS, tests) en suivant les guides du dépôt (`docs/guide-ejbca.md`, `docs/guide-https.md`),
    et prendre les captures d'écran demandées à chaque emplacement `[ Insérer capture d'écran ]`.
