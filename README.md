@@ -79,10 +79,10 @@ Synthèse complète de la recherche : [docs/recherche-ecosysteme-pki-2026.md](do
 ## 7. Organisation Git
 
 ```
-main                          # intégration finale, stable
-├── pki-ejbca-setup           # Ahmad Diop
-├── webserver-https-migration # Papa Mamadou
-└── docs-rapport-tests        # Mame Fama
+main                           # intégration finale, stable
+├── pki-ejbca-setup            # Ahmad Diop
+├── webserver-https-migration  # Papa Mamadou
+└── docs-rapport-tests         # Mame Fama
 ```
 
 Convention de commit : `type(scope): message` (ex: `feat(ejbca): ajoute docker-compose CA`).
