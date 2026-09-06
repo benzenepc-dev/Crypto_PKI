@@ -32,9 +32,9 @@ Référence : [../docs/guide-https.md](guide-https.md)
 
 ## Mame Fama — branche `docs-rapport-tests`
 
-Rôle technique à part entière : audit de sécurité indépendant + démonstration de révocation,
-en plus de la compilation finale du rapport. Elle doit manipuler EJBCA et le serveur elle-même,
-pas seulement rédiger ce que les deux autres ont fait.
+Rôle technique à part entière : audit de sécurité indépendant + démonstration de révocation.
+Elle doit manipuler EJBCA et le serveur elle-même, pas seulement rédiger ce que les deux
+autres ont fait.
 
 - [ ] **Démonstration de révocation** (hands-on, dans EJBCA) : révoquer le certificat serveur
       émis par Ahmad, publier/rafraîchir la CRL, puis prouver côté client que le certificat
@@ -48,12 +48,9 @@ pas seulement rédiger ce que les deux autres ont fait.
       (ex. `curl -v https://google.com`) vs notre site (avec/sans `--cacert`), expliquer
       dans le rapport pourquoi le comportement diffère (magasins de confiance système).
 - [ ] Exécuter et documenter les scénarios de test 1 à 4 ci-dessous (captures à l'appui).
-- [ ] Compiler le rapport final : rédiger l'introduction, le contexte/objectifs, les
-      difficultés rencontrées (à collecter auprès des 3), les perspectives et la conclusion ;
-      intégrer les sections 5 et 6 écrites par Ahmad et Papa.
-- [ ] Mettre à jour et finaliser le PowerPoint à partir du rapport compilé.
-- [ ] Enregistrer la vidéo de démonstration (`VIDEO/script-video-demo.md`), y compris la
-      démo de révocation qu'elle a réalisée.
+
+> La compilation finale du rapport, la finalisation du PowerPoint et l'enregistrement de la
+> vidéo de démonstration seront répartis entre les 3 membres à la fin du projet.
 
 ### Scénarios de test à documenter
 
