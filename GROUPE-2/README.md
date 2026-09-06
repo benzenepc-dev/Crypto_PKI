@@ -17,7 +17,7 @@ Destinataire : **nds.ucad.fst.lacgaa@gmail.com**
 
 - **Ahmad Diop** — branche `pki-ejbca-setup` (déploiement EJBCA, Root CA, certificat serveur)
 - **Papa Mamadou** — branche `webserver-https-migration` (serveur web, migration HTTPS)
-- **Mame Fama** — branche `docs-rapport-tests` (rapport, tests, documentation)
+- **Mame Fama** — branche `docs-rapport-tests` (révocation/CRL, audit TLS indépendant, comparatif CA privée vs CA publique, tests)
 
 ## À faire avant l'envoi
 
