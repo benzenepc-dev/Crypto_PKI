@@ -1,0 +1,37 @@
+services:
+  ejbca-database:
+    image: mariadb:latest
+    container_name: ejbca-database
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: foo123
+      MYSQL_DATABASE: ejbca
+      MYSQL_USER: ejbca
+      MYSQL_PASSWORD: ejbca
+    volumes:
+      - ./data/db:/var/lib/mysql:rw
+    networks:
+      - pki-net
+
+  ejbca:
+    image: keyfactor/ejbca-ce:latest
+    container_name: ejbca
+    restart: unless-stopped
+    depends_on:
+      - ejbca-database
+    environment:
+      DATABASE_JDBC_URL: jdbc:mariadb://ejbca-database:3306/ejbca?characterEncoding=UTF-8
+      LOG_LEVEL_APP: INFO
+      LOG_LEVEL_SERVER: INFO
+      TLS_SETUP_ENABLED: "simple"
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./data/ejbca:/mnt/persistent:rw
+    networks:
+      - pki-net
+
+networks:
+  pki-net:
+    driver: bridge

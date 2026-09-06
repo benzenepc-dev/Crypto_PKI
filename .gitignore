@@ -1,0 +1,15 @@
+# Secrets et clés privées — ne jamais committer
+certs/*.key
+certs/*.p12
+certs/*.pfx
+infra/ejbca/output/
+infra/ejbca/data/
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
