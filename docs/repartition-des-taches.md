@@ -9,7 +9,10 @@
 - [ ] Création des profils de certificat/End Entity pour un certificat serveur
 - [ ] Émission du certificat serveur à partir de la CSR fournie par le membre 2
 - [ ] Export des artefacts (`root-ca.pem`, `chain.pem`, `server-cert.pem`) pour le membre 2
-- [ ] (Bonus) Démonstration de révocation d'un certificat + CRL
+- [ ] Donner à Mame Fatou un accès EJBCA (compte RA/Admin) pour qu'elle puisse réaliser
+      elle-même la démonstration de révocation (voir sa section ci-dessous)
+- [ ] Rédiger la section 5 du rapport (installation + configuration EJBCA, avec ses propres
+      captures d'écran) — voir `Rapport_PKI_EJBCA_GROUPE-2.docx`
 
 Référence : [../docs/guide-ejbca.md](guide-ejbca.md)
 
@@ -22,17 +25,35 @@ Référence : [../docs/guide-ejbca.md](guide-ejbca.md)
       `infra/webserver/`)
 - [ ] Mettre en place la redirection HTTP → HTTPS
 - [ ] Durcissement TLS (protocoles, ciphers, HSTS)
-- [ ] Vérifications (`openssl s_client`, `curl --cacert`, testssl.sh)
+- [ ] Vérifications de base (`openssl s_client`, `curl --cacert`)
+- [ ] Rédiger la section 6 du rapport (migration HTTP→HTTPS, avec ses propres captures)
 
 Référence : [../docs/guide-https.md](guide-https.md)
 
 ## Mame Fatou — branche `docs-rapport-tests`
 
-- [ ] Rédaction du rapport : concepts PKI/X.509, chaîne de confiance, CRL/OCSP
-- [ ] Explication des choix techniques (EJBCA, hiérarchie de CA, algorithmes/tailles de clé)
-- [ ] Scénarios de test/validation (voir ci-dessous) + captures d'écran
-- [ ] Relecture des README/guides des deux autres branches
-- [ ] Support de soutenance (slides) si demandé
+Rôle technique à part entière : audit de sécurité indépendant + démonstration de révocation,
+en plus de la compilation finale du rapport. Elle doit manipuler EJBCA et le serveur elle-même,
+pas seulement rédiger ce que les deux autres ont fait.
+
+- [ ] **Démonstration de révocation** (hands-on, dans EJBCA) : révoquer le certificat serveur
+      émis par Ahmad, publier/rafraîchir la CRL, puis prouver côté client que le certificat
+      révoqué est rejeté (`openssl verify -crl_check`, ou nouvelle tentative `curl`/navigateur).
+      Voir scénario 5 ci-dessous.
+- [ ] **Audit de sécurité TLS indépendant** du serveur migré par Papa Mamadou :
+      `testssl.sh https://pki-demo.local` et/ou
+      `nmap --script ssl-enum-ciphers -p 443 pki-demo.local`, analyse des résultats
+      (protocoles/ciphers acceptés, note de sécurité, recommandations).
+- [ ] **Comparatif CA privée vs CA publique** : tester l'accès à un site public HTTPS
+      (ex. `curl -v https://google.com`) vs notre site (avec/sans `--cacert`), expliquer
+      dans le rapport pourquoi le comportement diffère (magasins de confiance système).
+- [ ] Exécuter et documenter les scénarios de test 1 à 4 ci-dessous (captures à l'appui).
+- [ ] Compiler le rapport final : rédiger l'introduction, le contexte/objectifs, les
+      difficultés rencontrées (à collecter auprès des 3), les perspectives et la conclusion ;
+      intégrer les sections 5 et 6 écrites par Ahmad et Papa.
+- [ ] Mettre à jour et finaliser le PowerPoint à partir du rapport compilé.
+- [ ] Enregistrer la vidéo de démonstration (`VIDEO/script-video-demo.md`), y compris la
+      démo de révocation qu'elle a réalisée.
 
 ### Scénarios de test à documenter
 
@@ -41,7 +62,8 @@ Référence : [../docs/guide-https.md](guide-https.md)
 3. Accès HTTPS sans faire confiance à la Root CA → erreur de certificat (preuve que ce n'est
    pas une CA publique).
 4. Redirection automatique HTTP → HTTPS (code 301/308).
-5. (Bonus) Révocation d'un certificat dans EJBCA → apparition dans la CRL → refus côté client.
+5. Révocation d'un certificat dans EJBCA → apparition dans la CRL → refus côté client
+   (réalisée et documentée par Mame Fatou, plus obligatoire dans ce rapport).
 
 ## Workflow Git
 
