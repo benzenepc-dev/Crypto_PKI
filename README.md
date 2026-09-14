@@ -7,76 +7,100 @@ Projet de cours — Master SSI, Cryptographie (2026).
 
 Déployer une PKI privée avec **EJBCA Community** (Enterprise Java Beans Certificate Authority),
 émettre un certificat serveur depuis cette CA, puis migrer un serveur web d'**HTTP vers HTTPS**
-en utilisant ce certificat. Le tout est documenté et démontrable via Docker.
+en utilisant ce certificat.
 
 Livrables :
-- Une PKI fonctionnelle (Root CA, éventuellement Sub CA, profils de certificats, End Entity).
+- Une PKI fonctionnelle (Management CA, profils de certificats, End Entity).
 - Un serveur web migré de HTTP → HTTPS avec le certificat émis par notre CA.
 - Un rapport expliquant les concepts (PKI, X.509, chaîne de confiance, CRL/OCSP) et les choix faits.
-- Une démo reproductible (docker-compose) + captures/preuves (openssl s_client, navigateur, CRL).
+- Une démo reproductible + captures/preuves (openssl s_client, navigateur, CRL).
 
-## 2. Architecture
+## 2. Statut actuel du projet
+
+### ✅ Fait (Ahmad)
+JDK/Ant/PostgreSQL installés, EJBCA compilé, WildFly configuré, Management CA créée, SuperAdmin créé.
+
+### 🔄 Ahmad — en cours
+- Télécharger/importer le `.p12` SuperAdmin, se connecter à l'Admin Web
+- Créer profil "SERVER" + émettre le certificat pour le serveur de démo de Papa
+- Captures d'écran + section rapport
+
+### ⏳ Papa Mamadou — tout reste à faire
+Serveur web natif (Apache/Nginx/IIS), CSR, HTTPS, redirection, durcissement TLS, tests, captures,
+section rapport.
+
+### ⏳ Mame Fama — tout reste à faire
+Révocation/CRL, audit TLS indépendant, comparatif CA privée/publique, scénarios de test 1-5.
+
+Détail complet, tâche par tâche : [docs/repartition-des-taches.md](docs/repartition-des-taches.md).
+
+## 3. Architecture
 
 ```mermaid
 flowchart LR
-    subgraph PKI["PKI - EJBCA (Docker)"]
-        RootCA[("Root CA")]
-        SubCA[("Sub CA (optionnel)")]
-        RootCA --> SubCA
+    subgraph PKI["PKI - EJBCA (installation native : JDK + WildFly + PostgreSQL)"]
+        CA[("Management CA")]
     end
     RA["RA Web / Admin Web"] --- PKI
-    SubCA -- "émission certificat serveur" --> Cert["Certificat X.509\n(serveur.pem + clé privée)"]
-    Cert --> Web["Serveur Web (Apache/Nginx)\nHTTP -> HTTPS"]
+    CA -- "émission certificat serveur" --> Cert["Certificat X.509\n(serveur.pem + clé privée)"]
+    Cert --> Web["Serveur Web (Apache/Nginx/IIS)\nHTTP -> HTTPS"]
     Client["Navigateur / curl / openssl s_client"] -- "TLS handshake" --> Web
-    Client -- "vérifie confiance via" --> RootCA
+    Client -- "vérifie confiance via" --> CA
 ```
 
-- **EJBCA Community** (image `keyfactor/ejbca-ce`) + **MariaDB** pour la base de données de la CA.
-- **Root CA** auto-signée (clé RSA 4096, longue validité) → émet une **Sub CA** ou directement des
-  certificats "End Entity" pour la démo (selon le temps disponible, la Sub CA est un bonus).
-- Un **serveur web** (Apache ou Nginx, au choix de la branche 2) initialement en HTTP,
+- **EJBCA Community**, compilé depuis les sources (`ant deployear`) et déployé sur
+  **WildFly 39**, avec **PostgreSQL 17** comme base de données.
+- **Pas de Docker** : la machine d'Ahmad n'a pas la virtualisation activée en BIOS, donc tout
+  tourne en natif (JDK 17, Apache Ant, WildFly, PostgreSQL installés directement sur Windows).
+  Voir le choix détaillé dans [docs/journal-installation-ejbca-natif.md](docs/journal-installation-ejbca-natif.md).
+- **Management CA** auto-signée (RSA 4096, SHA256WithRSA) qui émet directement les certificats
+  "End Entity" (serveur, SuperAdmin).
+- Un **serveur web** (Apache, Nginx ou IIS, au choix de Papa) initialement en HTTP,
   reconfiguré en HTTPS avec le certificat émis par la CA, avec redirection HTTP → HTTPS.
-- Le certificat racine (Root CA) est ajouté au **truststore** du client pour valider la chaîne
-  sans avertissement de sécurité.
+- Le certificat racine (Management CA) est ajouté au **truststore** du client pour valider la
+  chaîne sans avertissement de sécurité.
 
-## 3. Répartition du travail (3 branches)
+## 4. Répartition du travail (3 branches)
 
 | Branche | Responsable | Contenu |
 |---|---|---|
-| `pki-ejbca-setup` | Ahmad Diop | Déploiement EJBCA (Docker Compose + MariaDB), création Root CA (et Sub CA si possible), profils de certificats, création du SuperAdmin, émission du certificat serveur (CSR ou génération par la CA) |
+| `pki-ejbca-setup` | Ahmad Diop | Installation native d'EJBCA (JDK/Ant/WildFly/PostgreSQL), création de la Management CA, du SuperAdmin, des profils de certificats, émission du certificat serveur |
 | `webserver-https-migration` | Papa Mamadou | Serveur web de démo en HTTP, migration vers HTTPS avec le certificat EJBCA, redirection HTTP→HTTPS, durcissement TLS (protocoles/ciphers), vérification avec `openssl s_client` / `testssl.sh` |
-| `docs-rapport-tests` | Mame Fama | **Rôle technique** : révocation d'un certificat + vérification CRL (hands-on EJBCA), audit de sécurité TLS indépendant (`testssl.sh`/`nmap`), comparatif CA privée vs CA publique, exécution des scénarios de test 1-4 |
+| `docs-rapport-tests` | Mame Fama | **Rôle technique** : révocation d'un certificat + vérification CRL (hands-on EJBCA), audit de sécurité TLS indépendant (`testssl.sh`/`nmap`), comparatif CA privée vs CA publique, exécution des scénarios de test 1-5 |
 
 Chaque branche pousse son travail puis ouvre une Pull Request vers `main` pour relecture croisée.
 Voir [docs/repartition-des-taches.md](docs/repartition-des-taches.md) pour le détail des tâches.
 
-## 4. Démarrage rapide (EJBCA)
+## 5. Installation d'EJBCA (native, sans Docker)
 
-```bash
-cd infra/ejbca
-docker compose up -d
-docker compose logs -f ejbca   # récupérer l'URL d'accès (Admin Web / RA Web)
-```
+Étapes détaillées, commandes exactes et difficultés rencontrées :
+[docs/journal-installation-ejbca-natif.md](docs/journal-installation-ejbca-natif.md).
 
-Voir [docs/guide-ejbca.md](docs/guide-ejbca.md) pour les étapes détaillées :
-création du SuperAdmin, Root CA, profils de certificats, émission du certificat serveur.
+Résumé :
+1. Installer JDK 17, Apache Ant, PostgreSQL 17.
+2. Créer la base `ejbca` et l'utilisateur dédié dans PostgreSQL.
+3. Télécharger les sources EJBCA Community et les compiler (`ant deployear`).
+4. Installer WildFly, y déployer le driver JDBC PostgreSQL et l'EAR généré.
+5. Configurer le datasource `EjbcaDS` dans WildFly (`jboss-cli`).
+6. Créer la Management CA et le SuperAdmin via `bin/ejbca.sh` (CLI EJBCA).
+7. Récupérer le certificat client SuperAdmin via la RA Web et se connecter à l'Admin Web.
 
-## 5. Migration HTTP → HTTPS
+## 6. Migration HTTP → HTTPS
 
-Voir [docs/guide-https.md](docs/guide-https.md) et les configurations dans
-[infra/webserver/](infra/webserver/) (Apache et Nginx).
+À réaliser par Papa Mamadou (voir la checklist dans
+[docs/repartition-des-taches.md](docs/repartition-des-taches.md)) : serveur web natif, CSR,
+certificat signé par la Management CA d'Ahmad, configuration HTTPS + redirection + durcissement TLS.
 
-## 6. Ressources utilisées
+## 7. Ressources utilisées
 
 - [EJBCA - The Open-Source Certificate Authority](https://www.ejbca.org/)
-- [Tutorial - Start out with EJBCA Docker container (Keyfactor Docs)](https://docs.keyfactor.com/ejbca/latest/tutorial-start-out-with-ejbca-docker-container)
+- [EJBCA-CE sur GitHub (Keyfactor)](https://github.com/Keyfactor/ejbca-ce)
 - [Tutorial - Create your first Root CA using EJBCA (Keyfactor Docs)](https://docs.keyfactor.com/ejbca/latest/tutorial-create-your-first-root-ca-using-ejbca)
-- [EJBCA and Docker — Streamlining PKI Management and TLS Certificate Issuance (Docker Blog)](https://www.docker.com/blog/ejbca-and-docker-streamlining-pki-management-and-tls-certificate-issuance/)
 - [The Art of Hacking — Cryptography & PKI resources](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/cryptography-pki/cryptography-and-pki)
 
 Synthèse complète de la recherche : [docs/recherche-ecosysteme-pki-2026.md](docs/recherche-ecosysteme-pki-2026.md)
 
-## 7. Organisation Git
+## 8. Organisation Git
 
 ```
 main                           # intégration finale, stable
@@ -85,4 +109,4 @@ main                           # intégration finale, stable
 └── docs-rapport-tests         # Mame Fama
 ```
 
-Convention de commit : `type(scope): message` (ex: `feat(ejbca): ajoute docker-compose CA`).
+Convention de commit : `type(scope): message` (ex: `feat(ejbca): configure datasource WildFly`).
