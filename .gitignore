@@ -6,6 +6,9 @@
 infra/ejbca/output/
 infra/ejbca/data/
 
+# Matériel de cours personnel (ne pas publier)
+cours_Cryptographie-v2.pdf
+
 # OS / éditeurs
 .DS_Store
 Thumbs.db
