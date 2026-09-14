@@ -1,7 +1,8 @@
 # Secrets et clés privées — ne jamais committer
-certs/*.key
-certs/*.p12
-certs/*.pfx
+*.key
+*.p12
+*.pfx
+*.jks
 infra/ejbca/output/
 infra/ejbca/data/
 
