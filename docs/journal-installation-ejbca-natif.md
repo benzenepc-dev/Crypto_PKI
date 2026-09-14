@@ -2,13 +2,7 @@
 
 Ce fichier trace, étape par étape, l'installation réelle d'EJBCA effectuée par Ahmad Diop,
 avec les commandes exécutées et les résultats. Il servira de base factuelle pour remplir
-le rapport Word (`GROUPE-2/Rapport_PKI_EJBCA_GROUPE-2.docx`, sections 4 et 5) : à chaque
-étape marquée 📸, **Ahmad prend lui-même** une capture de la seule fenêtre concernée
-(terminal ou navigateur) au moment opportun, et l'ajoute dans `docs/captures/`.
-
-> ⚠️ Pas de capture automatique de l'écran entier : ça risque d'inclure des fenêtres/contenus
-> sans rapport avec l'installation. Chaque capture doit être prise manuellement et ne montrer
-> que la fenêtre pertinente (Alt+Impr écran sous Windows, ou l'outil Capture d'écran).
+le rapport Word (`GROUPE-2/Rapport_PKI_EJBCA_GROUPE-2.docx`, sections 4 et 5).
 
 ## Contexte et décision technique
 

@@ -1,8 +1,7 @@
 # Checklist finale — Répartition des tâches
 
-Approche actuelle : **installation native** (JDK + Ant + WildFly + PostgreSQL), sans Docker
-(abandonné le jour J faute de virtualisation activée sur la machine d'Ahmad). Voir le détail
-technique dans [journal-installation-ejbca-natif.md](journal-installation-ejbca-natif.md).
+Approche actuelle : **installation native** (JDK + Ant + WildFly + PostgreSQL), sans Docker.
+Voir le détail technique dans [journal-installation-ejbca-natif.md](journal-installation-ejbca-natif.md).
 
 ## Ahmad Diop — branche `pki-ejbca-setup`
 
