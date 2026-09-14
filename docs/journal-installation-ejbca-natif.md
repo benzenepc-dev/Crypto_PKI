@@ -40,9 +40,19 @@ winget install --id EclipseAdoptium.Temurin.17.JDK --silent
 ```
 
 Statut : ✅ fait — installé dans `C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot`
-(coexiste avec le JDK 25 déjà présent).
+(coexiste avec le JDK 25 déjà présent, qui reste la version par défaut du système).
 
-📸 Capture à prendre : fenêtre terminal avec `java -version` pointant vers JDK 17.
+Pour que le build EJBCA utilise bien le JDK 17 (et pas le JDK 25 par défaut), `JAVA_HOME` est
+positionné explicitement à chaque session de build (voir étape 7, `ejbca-env.sh`). La commande
+réelle utilisée pendant le build est simplement `java -version` une fois `JAVA_HOME` positionné :
+
+```cmd
+set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot"
+set "PATH=%JAVA_HOME%\bin;%PATH%"
+java -version
+```
+
+📸 Capture prise : `01-jdk17-java-version.png` — confirme `openjdk version "17.0.20.1"`.
 
 ### 2. Installation d'Apache Ant
 
